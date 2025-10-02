@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Assistant App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background: #3a7bd5;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #2f5ea3;
+    }
+    nav a {
+      color: white;
+      padding: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #1d3d6e;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .progress {
+      background: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: .5rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background: #3a7bd5;
+      width: 0%;
+      transition: width .4s ease;
+    }
+    button {
+      background: #3a7bd5;
+      color: white;
+      border: none;
+      padding: .5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #2f5ea3;
+    }
+    .dark-mode {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+    .dark-mode header, .dark-mode nav {
+      background: #000;
+    }
+    .dark-mode .card {
+      background: #2c2c2c;
+      color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Health Assistant</h1>
+    <p>Your personal diet and health tracker</p>
+  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Login</a>
+    <a href="#">Track Food</a>
+    <a href="#">Goals</a>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <h2>Today's Progress</h2>
+      <p>Calories: <span id="calories">0</span>/2000</p>
+      <div class="progress"><div class="progress-bar" id="calProgress"></div></div>
+      <button onclick="logCalories(500)">Log 500 Calories</button>
+    </div>
+    <div class="card">
+      <h2>Dark Mode</h2>
+      <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+    <div class="card">
+      <h2>Notification Test</h2>
+      <button onclick="sendNotification()">Send Notification</button>
+    </div>
+  </div>
+  <script>
+    // Progress Bar Demo
+    let calories = 0;
+    function logCalories(amount) {
+      calories += amount;
+      document.getElementById('calories').textContent = calories;
+      let percent = Math.min((calories/2000)*100,100);
+      document.getElementById('calProgress').style.width = percent + '%';
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    }
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark-mode");
+    }
+
+    // Notifications
+    function sendNotification() {
+      if (Notification.permission === "granted") {
+        new Notification("Health Assistant", { body: "Don't forget to log your meals today!" });
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            new Notification("Health Assistant", { body: "Notifications enabled." });
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
