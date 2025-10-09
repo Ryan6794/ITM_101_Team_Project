@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background: #3a7bd5;
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
   color: white;
   padding: 1rem;
   text-align: center;
@@ -16,7 +16,7 @@ header {
 nav {
   display: flex;
   justify-content: center;
-  background: #2f5ea3;
+  background: linear-gradient(135deg, #2f5ea3, #0a3d62);
 }
 
 nav a {
@@ -60,7 +60,7 @@ nav a:focus {
 }
 
 button {
-  background: #3a7bd5;
+  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
   color: white;
   border: none;
   padding: .5rem 1rem;
@@ -100,3 +100,13 @@ button:focus {
   height: 1px;
   overflow: hidden;
 }
+
+ * {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
