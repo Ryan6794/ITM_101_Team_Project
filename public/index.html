@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Assistant App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Health Assistant</h1>
+    <p>Your personal diet and health tracker</p>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <a href="#">Home</a>
+    <a href="#">Login</a>
+    <a href="#">Track Food</a>
+    <a href="goals.html">Goals</a>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h2>Today's Progress</h2>
+      <p>Calories: <span id="calories">0</span>/2000</p>
+      <div class="progress"><div class="progress-bar" id="calProgress"></div></div>
+      <button id="logBtn" aria-label="Add 500 calories to daily total">Log 500 Calories</button>
+    </div>
+
+    <div class="card">
+      <h2>Dark Mode</h2>
+      <button id="darkToggle">Enable Dark Mode</button>
+    </div>
+
+    <div class="card">
+      <h2>Notification Test</h2>
+      <button id="notifyBtn" aria-label="Send test notification">Send Notification</button>
+    </div>
+  </div>
+
+  <!-- Link to external JS -->
+  <script src="script.js"></script>
+</body>
+</html>
