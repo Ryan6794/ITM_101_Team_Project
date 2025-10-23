@@ -48,7 +48,6 @@ goalForm.addEventListener('submit', function (event) {
     const value = Number(valueInput);
 
 
-
     // Create list item safely
     const li = document.createElement('li');
     li.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Goal: ${value}`;
