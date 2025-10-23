@@ -31,5 +31,33 @@ function sendNotifications(user) {
     }
 }
 
+
+goalForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const type = document.getElementById('goalType').value;
+
+    // Sanitize the numeric input
+    let value = document.getElementById('goalValue').value;
+    value = Number(value); // Convert to number
+    if (isNaN(value) || value < 0 || value > 10000) { // Example limits
+        alert('Please enter a valid positive number for your goal.');
+        return;
+    }
+
+    // Create list item safely
+    const li = document.createElement('li');
+    li.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Goal: ${value}`;
+    goalsList.appendChild(li);
+
+    // Add to chart data
+    goalsData.labels.push(type.charAt(0).toUpperCase() + type.slice(1));
+    goalsData.values.push(value);
+    chart.update();
+
+    goalForm.reset();
+});
+
+
 // Call the function
 sendNotifications(user);
