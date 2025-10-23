@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Health Goals</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
   <header>
     <h1>Your Health Goals</h1>
@@ -18,19 +20,19 @@
   <main>
     <section>
       <h2>Set Your Goals</h2>
-        <form id="goalForm">
-          <label for="goalType">Goal Type:</label>
-          <select id="goalType" name="goalType">
-            <option value="calories">Calories</option>
-            <option value="weight">Weight</option>
-            <option value="exercise">Exercise</option>
-          </select>
-          <br>
-          <label for="goalValue">Goal Value:</label>
-          <input type="number" id="goalValue" name="goalValue" required>
-          <br>
-          <button type="submit">Save Goal</button>
-        </form>
+      <form id="goalForm">
+        <label for="goalType">Goal Type:</label>
+        <select id="goalType" name="goalType">
+          <option value="calories">Calories</option>
+          <option value="weight">Weight</option>
+          <option value="exercise">Exercise</option>
+        </select>
+        <br>
+        <label for="goalValue">Goal Value:</label>
+        <input type="number" id="goalValue" name="goalValue" required>
+        <br>
+        <button type="submit">Save Goal</button>
+      </form>
     </section>
     <section>
       <h2>Current Goals</h2>
@@ -38,56 +40,56 @@
         <!-- Goals will be listed here -->
       </ul>
       <h2>Goals Graph</h2>
-  <canvas id="goalsChart" width="200" height="120" style="max-width:200px;max-height:120px;"></canvas>
+      <canvas id="goalsChart" width="200" height="120" style="max-width:200px;max-height:120px;"></canvas>
     </section>
   </main>
-</main>
-<script>
-  const goalForm = document.getElementById('goalForm');
-  const goalsList = document.getElementById('goalsList');
-  const goalsChartCtx = document.getElementById('goalsChart').getContext('2d');
+  <script>
+    const goalForm = document.getElementById('goalForm');
+    const goalsList = document.getElementById('goalsList');
+    const goalsChartCtx = document.getElementById('goalsChart').getContext('2d');
 
-  // Store goals for chart
-  const goalsData = {
-    labels: [],
-    values: []
-  };
+    // Store goals for chart
+    const goalsData = {
+      labels: [],
+      values: []
+    };
 
-  // Create Chart.js bar chart
-  const chart = new Chart(goalsChartCtx, {
-    type: 'bar',
-    data: {
-      labels: goalsData.labels,
-      datasets: [{
-        label: 'Goal Value',
-        data: goalsData.values,
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: { beginAtZero: true }
+    // Create Chart.js bar chart
+    const chart = new Chart(goalsChartCtx, {
+      type: 'bar',
+      data: {
+        labels: goalsData.labels,
+        datasets: [{
+          label: 'Goal Value',
+          data: goalsData.values,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
-    }
-  });
+    });
 
-  goalForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const type = document.getElementById('goalType').value;
-    const value = document.getElementById('goalValue').value;
-    const li = document.createElement('li');
-    li.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Goal: ${value}`;
-    goalsList.appendChild(li);
+    goalForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const type = document.getElementById('goalType').value;
+      const value = document.getElementById('goalValue').value;
+      const li = document.createElement('li');
+      li.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Goal: ${value}`;
+      goalsList.appendChild(li);
 
-    // Add to chart data
-    goalsData.labels.push(type.charAt(0).toUpperCase() + type.slice(1));
-    goalsData.values.push(Number(value));
-    chart.update();
+      // Add to chart data
+      goalsData.labels.push(type.charAt(0).toUpperCase() + type.slice(1));
+      goalsData.values.push(Number(value));
+      chart.update();
 
-    goalForm.reset();
-  });
-</script>
+      goalForm.reset();
+    });
+  </script>
 </body>
+
 </html>

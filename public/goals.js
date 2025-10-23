@@ -31,5 +31,37 @@ function sendNotifications(user) {
     }
 }
 
+
+goalForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const type = document.getElementById('goalType').value;
+    const valueInput = document.getElementById('goalValue').value;
+
+    // Check empty input
+    if (valueInput.trim() === "") {
+        alert('Goal value cannot be empty.');
+        return;
+    }
+
+    // Convert to number
+    const value = Number(valueInput);
+
+
+
+    // Create list item safely
+    const li = document.createElement('li');
+    li.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Goal: ${value}`;
+    goalsList.appendChild(li);
+
+    // Add to chart data
+    goalsData.labels.push(type.charAt(0).toUpperCase() + type.slice(1));
+    goalsData.values.push(value);
+    chart.update();
+
+    goalForm.reset();
+});
+
+
 // Call the function
 sendNotifications(user);
