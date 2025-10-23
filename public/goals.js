@@ -36,14 +36,18 @@ goalForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const type = document.getElementById('goalType').value;
+    const valueInput = document.getElementById('goalValue').value;
 
-    // Sanitize the numeric input
-    let value = document.getElementById('goalValue').value;
-    value = Number(value); // Convert to number
-    if (isNaN(value) || value < 0 || value > 10000) { // Example limits
-        alert('Please enter a valid positive number for your goal.');
+    // Check empty input
+    if (valueInput.trim() === "") {
+        alert('Goal value cannot be empty.');
         return;
     }
+
+    // Convert to number
+    const value = Number(valueInput);
+
+
 
     // Create list item safely
     const li = document.createElement('li');
