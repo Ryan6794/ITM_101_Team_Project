@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase Google Login</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <script src="config.js" defer></script>
+  <script type="module" defer>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const userInfo = document.getElementById("user-info");
+
+    loginBtn.addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        console.log("Logged in:", user.displayName);
+      } catch (error) {
+        console.error("Login error:", error.message);
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        console.log("Logged out");
+      } catch (error) {
+        console.error("Logout error:", error.message);
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userInfo.innerHTML = `
+          <p><strong>Logged in as:</strong> ${user.displayName}</p>
+          <p>Email: ${user.email}</p>
+          <img src="${user.photoURL}" alt="Profile Picture" width="80" />
+        `;
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "block";
+      } else {
+        userInfo.innerHTML = "<p>No user is logged in.</p>";
+        loginBtn.style.display = "block";
+        logoutBtn.style.display = "none";
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <h1>Firebase Google Login Demo</h1>
+  <button id="login-btn">Sign in with Google</button>
+  <button id="logout-btn" style="display: none;">Sign out</button>
+  <div id="user-info"></div>
+</body>
+</html>
